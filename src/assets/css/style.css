@@ -1374,9 +1374,21 @@ label {
     position: relative;
     top: -3px;
 
-}.customize-uniform .customize-layout .customize-option ul.accordion-list li.text-style .answer-wrap {
+}.customize-uniform .customize-layout .customize-option ul.accordion-list li.text-style .answer-wrap, 
+.customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer-wrap {
     height: 490px;
     overflow-y: auto;
+}
+.colors-btn-merge button {
+    position: absolute;
+    right: -9px;
+    top: -13px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.colors-btn-merge {
+    position: relative;
 }
 .labelMerge {
     display: inline-block;
