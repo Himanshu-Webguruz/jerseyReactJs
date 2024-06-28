@@ -47,12 +47,7 @@ const JerseyFront = forwardRef(
     }
 
     // we want background image for our image so that i look original image
-    let shirtBg = '';
-    if(selectedShoulderImage.includes("narrow")){
-      shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_front_narrow_shoulderbg.png`;
-    }else{
-      shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_wide_shoulderbg.png`;
-    }
+    const shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_front_narrow_shoulderbg.png`;
 
     // this is for storing the value of uniform_layer which helps to decide how many stripes will be there
     // in a jersey and this is taken from util folder

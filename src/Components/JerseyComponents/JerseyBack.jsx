@@ -39,13 +39,7 @@ const JerseyBack = forwardRef(
     }
 
     //using bg image of shirt to make it visible
-    let shirtBg = '';
-    if(selectedShoulderImage.includes("narrow")){
-      shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_narrow_shoulderbg.png`;
-
-    }else{
-      shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_wide_shoulderbg.png`;
-    }
+    const shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_narrow_shoulderbg.png`;
 
     // getting all the stripes based on uniform layers for particular selected Jersey
     const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
