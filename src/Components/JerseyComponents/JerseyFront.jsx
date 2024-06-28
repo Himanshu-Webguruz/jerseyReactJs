@@ -225,10 +225,10 @@ const JerseyFront = forwardRef(
           tempCanvasbackStr.width = 300;
           tempCanvasbackStr.height = 600;
           const textContextbackStr = tempCanvasbackStr.getContext("2d");
-          textContextbackStr.drawImage(additionalShoulderImg, 5, 15, 300, 600);
+          textContextbackStr.drawImage(additionalShoulderImg, 5, 0, 300, 600);
           const tempImagebackStr = textContextbackStr.getImageData(
             5,
-            15,
+            0,
             300,
             600
           );
@@ -236,8 +236,8 @@ const JerseyFront = forwardRef(
             tempImagebackStr,
             shapeColors.shoulder2
           );
-          textContextbackStr.putImageData(updatedTempImagebackStr, 5, 15);
-          context.drawImage(tempCanvasbackStr, 5, 15);
+          textContextbackStr.putImageData(updatedTempImagebackStr, 5, 0);
+          context.drawImage(tempCanvasbackStr, 5, 0);
         }
 
         context.drawImage(selectedNeckbgImg, 9, 0);
@@ -327,6 +327,12 @@ const JerseyFront = forwardRef(
             cornerSize: 10,
             transparentCorners: false,
           });
+          img.setControlsVisibility({
+            mt:false,
+            mb:false,
+            ml:false,
+            mr:false
+          })
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
           img.on("modified", () => {

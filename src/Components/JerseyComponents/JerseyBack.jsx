@@ -168,13 +168,13 @@ const JerseyBack = forwardRef(
             textContextbackStr.drawImage(
               additionalShoulderImg,
               5,
-              15,
+              0,
               300,
               600
             );
             const tempImagebackStr = textContextbackStr.getImageData(
               5,
-              15,
+              0,
               300,
               600
             );
@@ -182,8 +182,8 @@ const JerseyBack = forwardRef(
               tempImagebackStr,
               shapeColors.shoulder2
             );
-            textContextbackStr.putImageData(updatedTempImagebackStr, 5, 15);
-            context.drawImage(tempCanvasbackStr, 5, 15);
+            textContextbackStr.putImageData(updatedTempImagebackStr, 5, 0);
+            context.drawImage(tempCanvasbackStr, 5, 0);
           }
         } catch (error) {
           console.error("Error loading images:", error);
@@ -225,7 +225,12 @@ const JerseyBack = forwardRef(
             fontSize: 60,
             editable: false,
           });
-
+          img.setControlsVisibility({
+            mt:false,
+            mb:false,
+            ml:false,
+            mr:false
+          })
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
 
