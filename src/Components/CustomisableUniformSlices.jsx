@@ -151,7 +151,7 @@ export default function CustomisableUniformSlices({
     left: 200,
     top: 100,
     scaleX: 0.7,
-    scaleY: 0.7,
+    scaleY: 1.4,
     angle: 0,
   })
 
@@ -163,7 +163,7 @@ export default function CustomisableUniformSlices({
     left: 100,
     top: 150,
     scaleX: 1.5,
-    scaleY: 1.5,
+    scaleY: 2,
     angle: 0,
   })
 

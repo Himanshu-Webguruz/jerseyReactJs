@@ -42,7 +42,7 @@ const JerseyBack = forwardRef(
     const shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_narrow_shoulderbg.png`;
 
     // getting all the stripes based on uniform layers for particular selected Jersey
-    const stripesNum = JerseyCustomisableData[jersyNum].back_layers;
+    const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
 
     // getting all common backstripe and backcollar image
     const backStripes = `assets/jerseys/${jersyNum}/slicings/back-stripes.png`;
@@ -109,30 +109,30 @@ const JerseyBack = forwardRef(
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           // default shirt
-          context.drawImage(defaultShirt, 10, 30, 300, 600);
-          let imageData = context.getImageData(10, 30, 300, 600);
+          context.drawImage(defaultShirt, 10, 0, 300, 600);
+          let imageData = context.getImageData(10, 0, 300, 600);
           imageData = changeColor(imageData, shapeColors.shirt1);
-          context.putImageData(imageData, 10, 30);
+          context.putImageData(imageData, 10, 0);
 
           // background image
-          context.drawImage(shirtbg, 10, 30, 300, 600);
+          context.drawImage(shirtbg, 10, 0, 300, 600);
 
           // Draw other default images
           const defaultImages = [
             {
               image: backCollarImg,
               color: shapeColors.neck1,
-              position: [10, 30],
+              position: [10, 0],
             },
             {
               image: defaultShoulder,
               color: shapeColors.shoulder1,
-              position: [10, 30],
+              position: [10, 0],
             },
             {
               image: defaultBackStripes,
               color: shapeColors.shirt2,
-              position: [10, 30],
+              position: [10, 0],
             },
           ];
 
@@ -144,7 +144,7 @@ const JerseyBack = forwardRef(
             defaultImages.push({
               image: stripeImg,
               color: shapeColors[colorKey],
-              position: [10, 30],
+              position: [10, 0],
             });
           });
 
@@ -225,13 +225,6 @@ const JerseyBack = forwardRef(
             fontSize: 60,
             editable: false,
           });
-
-          img.setControlsVisibility({
-            mt: false, // middle top disable
-            mb: false, // midle bottom
-            ml: false, // middle left
-            mr: false, // I think you get it
-        });
 
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);

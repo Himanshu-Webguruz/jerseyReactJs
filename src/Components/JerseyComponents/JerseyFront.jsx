@@ -136,22 +136,22 @@ const JerseyFront = forwardRef(
         }
 
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.drawImage(shirt, 10, 30, 300, 600);
-        let imageData = context.getImageData(10, 30, 300, 600);
+        context.drawImage(shirt, 10, 0, 300, 600);
+        let imageData = context.getImageData(10, 0, 300, 600);
         imageData = changeColor(imageData, shapeColors.shirt1);
-        context.putImageData(imageData, 10, 30);
-        context.drawImage(shirtbg, 10, 30, 300, 600);
+        context.putImageData(imageData, 10, 0);
+        context.drawImage(shirtbg, 10, 0, 300, 600);
 
         const images1 = [
           {
             image: shoulderImg,
             color: shapeColors.shoulder1,
-            position: [10, 30],
+            position: [10, 0],
           },
           {
             image: frontStripesImg,
             color: shapeColors.shirt2,
-            position: [10, 30],
+            position: [10, 0],
           },
         ];
 
@@ -160,7 +160,7 @@ const JerseyFront = forwardRef(
           images1.push({
             image: stripeImg,
             color: shapeColors[colorKey],
-            position: [10, 30],
+            position: [10, 0],
           });
         });
 
@@ -178,22 +178,22 @@ const JerseyFront = forwardRef(
 
         if (selectedNeckImage) {
           const tempCanvasbackStr = document.createElement("canvas");
-          tempCanvasbackStr.width = 173;
+          tempCanvasbackStr.width = 180;
           tempCanvasbackStr.height = 105;
           const textContextbackStr = tempCanvasbackStr.getContext("2d");
-          textContextbackStr.drawImage(selectedImg, -8, -3, 173, 105);
+          textContextbackStr.drawImage(selectedImg, -10, -6, 180, 105);
           const tempImagebackStr = textContextbackStr.getImageData(
-            -8,
-            -3,
-            173,
+            -10,
+            -6,
+            180,
             105
           );
           const updatedTempImagebackStr = changeColor(
             tempImagebackStr,
             shapeColors.neck1
           );
-          textContextbackStr.putImageData(updatedTempImagebackStr, -8, -3);
-          context.drawImage(tempCanvasbackStr, 80, 30);
+          textContextbackStr.putImageData(updatedTempImagebackStr, -10, -6);
+          context.drawImage(tempCanvasbackStr, 80, 2);
 
           if (
             selectedNeckImage.NeckId === 2 ||
@@ -204,10 +204,10 @@ const JerseyFront = forwardRef(
             tempCanvasbackStr.width = 300;
             tempCanvasbackStr.height = 600;
             const textContextbackStr = tempCanvasbackStr.getContext("2d");
-            textContextbackStr.drawImage(selectedNeckImg2, 4, 14, 300, 600);
+            textContextbackStr.drawImage(selectedNeckImg2, 4, 0, 300, 600);
             const tempImagebackStr = textContextbackStr.getImageData(
               4,
-              14,
+              0,
               300,
               600
             );
@@ -215,8 +215,8 @@ const JerseyFront = forwardRef(
               tempImagebackStr,
               shapeColors.neck2
             );
-            textContextbackStr.putImageData(updatedTempImagebackStr, 4, 14);
-            context.drawImage(tempCanvasbackStr, 4, 14);
+            textContextbackStr.putImageData(updatedTempImagebackStr, 4, 0);
+            context.drawImage(tempCanvasbackStr, 4, 0);
           }
         }
 
@@ -240,7 +240,7 @@ const JerseyFront = forwardRef(
           context.drawImage(tempCanvasbackStr, 5, 15);
         }
 
-        context.drawImage(selectedNeckbgImg, 9, 30);
+        context.drawImage(selectedNeckbgImg, 9, 0);
       } catch (error) {
         console.error("Error loading images:", error);
       }
@@ -314,9 +314,6 @@ const JerseyFront = forwardRef(
         });
       }
 
-      
-
-   
       if (numVal) {
         fabric.Image.fromURL(numVal, (img) => {
           img.set({
@@ -330,12 +327,6 @@ const JerseyFront = forwardRef(
             cornerSize: 10,
             transparentCorners: false,
           });
-          img.setControlsVisibility({
-            mt: false, 
-            mb: false, 
-            ml: false, 
-            mr: false, 
-        });
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
           img.on("modified", () => {
@@ -349,7 +340,7 @@ const JerseyFront = forwardRef(
       return () => {
         fabricCanvas.dispose();
       };
-    }, [canvasTemp, selectedImage, numVal, textPosition, numPosition ,imagePosition]);
+    }, [canvasTemp, selectedImage, numVal, textPosition, numPosition,imagePosition ]);
 
     // using this we allow our parent i.e canvas to have excess to this means parent is getting the whole final
     // image
