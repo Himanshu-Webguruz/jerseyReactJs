@@ -7,7 +7,7 @@ import React, {
 import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
 const JerseyRight = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
   const jersyNum = localStorage.getItem("selectedJersy");
-  const rightsideStripes = `assets/jerseys/${jersyNum}/slicings/rightside-stripes.png`;
+  let rightsideStripes = `assets/jerseys/${jersyNum}/slicings/rightside-stripes.png`;
   const rightsideShoulder = `assets/jerseys/${jersyNum}/slicings/rightside-shoulder.png`;
   const rightsideCollar = `assets/jerseys/${jersyNum}/slicings/rightside-collar.png`;
 
@@ -18,7 +18,9 @@ const JerseyRight = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
   } else {
     shirtImagebg = `assets/jerseys/${jersyNum}/slicings/crew_noV_rightsidebg.png`;
   }
-
+  if(!selectedvorNovImg.includes('noV')){
+    rightsideStripes = `assets/jerseys/${jersyNum}/slicings/rightside-stripes-v.png`;
+  }
   const canvasRef = useRef(null);
 
   // getting all the stripes based on uniform layers

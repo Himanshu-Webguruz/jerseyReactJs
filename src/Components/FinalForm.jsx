@@ -157,14 +157,47 @@ const FinalForm = () => {
       const textHeight = -404 / pdf.internal.scaleFactor;
       pdf.text(watermarkText, 40, (pageHeight - textHeight) / 2, null, 40);
     }
-    // for saving the pdf with specified name
-    pdf.save("jersey_design.pdf");
 
-    
-
-    
+    return pdf.output('blob');
   };
 
+  const handleClickSave = async (pdfurl) => {
+    console.log(pdfurl)
+    try {
+      const postData = {
+        contact_name: formData.contactname,
+        email: formData.emailaddress,
+        comment: formData.comments,
+        primary_contact: formData.pcontact,
+        secondary_contact: formData.scontact,
+        preferred: formData.pcalltime,
+        postcode: formData.postcode,
+        uniforms: formData.uniform_number,
+        uniforms_date: formData.date_uniform,
+      };
+  
+     
+  
+      const response = await fetch('https://nv.salesnavigators.in/wp-json/custom/v1/insert_uniform_data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+  
+      if (response.ok) {
+        // const result = await response.json();
+        console.log('Data uploaded successfully:');
+      } else {
+        // const errorText = await response.text();
+        console.error('Error uploading data:');
+      }
+    } catch (error) {
+      console.error('Error uploading data:', error);
+    }
+  };
+  
   return (
     <div className="customize-form">
       <div className="header-sec">
@@ -411,12 +444,12 @@ const FinalForm = () => {
                 </div>
               </div>
             </div>
-            <input
+            <button
               type="submit"
               className="btn-design"
               value="Send"
               name="saveImage"
-            />
+              onClick={handleClickSave}>Save</button>
           </div>
         </form>
       </div>

@@ -7,7 +7,7 @@ import React, {
 import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
 const JerseyLeft = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
   const jersyNum = localStorage.getItem("selectedJersy");
-  const leftSideStripes = `assets/jerseys/${jersyNum}/slicings/leftside-stripes.png`;
+  let leftSideStripes = `assets/jerseys/${jersyNum}/slicings/leftside-stripes.png`;
   const leftsideShoulder = `assets/jerseys/${jersyNum}/slicings/leftside-shoulder.png`;
   const leftsideCollar = `assets/jerseys/${jersyNum}/slicings/leftside-collar.png`;
 
@@ -17,6 +17,9 @@ const JerseyLeft = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
     shirtImagebg = `assets/jerseys/${jersyNum}/slicings/crew_leftsidebg.png`;
   } else {
     shirtImagebg = `assets/jerseys/${jersyNum}/slicings/crew_noV_leftsidebg.png`;
+  }
+  if(!selectedvorNovImg.includes('noV')){
+    leftSideStripes = `assets/jerseys/${jersyNum}/slicings/leftside-stripes-v.png`;
   }
 
   // getting all the stripes based on uniform layers
