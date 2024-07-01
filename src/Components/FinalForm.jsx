@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -19,8 +19,6 @@ const FinalForm = () => {
   const jerseyBackRef = localStorage.getItem("back")
   const jerseyLeftRef = localStorage.getItem("left")
   const jerseyRightRef = localStorage.getItem("right")
-
-
 
 
   const [errors, setErrors] = useState({});
@@ -66,43 +64,35 @@ const FinalForm = () => {
       
     }
   };
-
+  
   const generatePDF = async() => {
-    // const pdf = new jsPDF();
-
-
-    const pdf = new jsPDF(); // Set the page orientation to portrait, unit to mm, and format to A4
-
-
-
-    // i want these two in 1st page
+    const pdf = new jsPDF();
+  
+    // First page
     const refs = [
       { ref: jerseyFrontRef, x: 10, y: 110 },
       { ref: jerseyBackRef, x: 110, y: 110 },
     ];
-
-    // and these two in 2nd page
+  
+    // Second page
     const refsSecondPage = [
       { ref: jerseyLeftRef, x: 10, y: 80 },
       { ref: jerseyRightRef, x: 110, y: 80 },
     ];
-
-
+  
     pdf.setFontSize(16);
     pdf.setFont('helvetica', 'bold');
     const pageWidth = pdf.internal.pageSize.getWidth();
     const textWidth = pdf.getStringUnitWidth('Contact Information') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
     const x = (pageWidth - textWidth) / 2;
     pdf.text('Contact Information', x, 16);
-
-    // Draw a line under the heading
+  
     const lineX = 14;
     const lineY = 18;
     const lineWidth = pageWidth - 28;
     pdf.setLineWidth(0.5);
     pdf.line(lineX, lineY, lineX + lineWidth, lineY);
-
-    // pdf data to be generated in the form of table 
+  
     pdf.autoTable({
       startY: 22,
       head: [],
@@ -124,29 +114,25 @@ const FinalForm = () => {
         3: { cellWidth: 70 }
       },
     });
-
-    // Add data in the first page
+  
+    // Add data on the first page
     for (let { ref, x, y } of refs) {
       if (ref) {
         const imageDataUrl = ref;
-
         pdf.addImage(imageDataUrl, "PNG", x, y);
       }
     }
-
-    // for adding a new page to pdf
+  
     pdf.addPage();
-
-    // Add data in the second page
+  
+    // Add data on the second page
     for (let { ref, x, y } of refsSecondPage) {
       if (ref) {
         const imageDataUrl = ref;
         pdf.addImage(imageDataUrl, "PNG", x, y);
       }
     }
-
-   
-    // Adding watermark to each page
+  
     const pages = pdf.internal.getNumberOfPages();
     for (let i = 1; i <= pages; i++) {
       pdf.setPage(i);
@@ -157,45 +143,42 @@ const FinalForm = () => {
       const textHeight = -404 / pdf.internal.scaleFactor;
       pdf.text(watermarkText, 40, (pageHeight - textHeight) / 2, null, 40);
     }
-
-    return pdf.output('blob');
+   
+    return pdf;
   };
 
-  const handleClickSave = async (pdfurl) => {
-    console.log(pdfurl)
-    try {
-      const postData = {
-        contact_name: formData.contactname,
-        email: formData.emailaddress,
-        comment: formData.comments,
-        primary_contact: formData.pcontact,
-        secondary_contact: formData.scontact,
-        preferred: formData.pcalltime,
-        postcode: formData.postcode,
-        uniforms: formData.uniform_number,
-        uniforms_date: formData.date_uniform,
-      };
-  
-     
-  
-      const response = await fetch('https://nv.salesnavigators.in/wp-json/custom/v1/insert_uniform_data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
-      });
-  
-      if (response.ok) {
-        // const result = await response.json();
-        console.log('Data uploaded successfully:');
-      } else {
-        // const errorText = await response.text();
-        console.error('Error uploading data:');
-      }
-    } catch (error) {
-      console.error('Error uploading data:', error);
-    }
+  const handleClickSave = async () => {
+    const pdfData = await generatePDF();
+ 
+    const pdfBlob = pdfData.output("blob");
+
+    const formdata = new FormData();
+   
+    
+    formdata.append("contact_name", formData.contactname);
+    formdata.append("email", formData.emailaddress);
+    formdata.append("primary_contact", formData.pcontact);
+    formdata.append("secondary_contact", formData.scontact);
+    formdata.append("preferred", formData.pcalltime);
+    formdata.append("postcode", formData.postcode);
+    formdata.append("uniforms", formData.uniform_number);
+    formdata.append("uniforms_date", formData.date_uniform);
+    formdata.append("comment", formData.comments);
+    formdata.append("image", pdfBlob);
+    
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow"
+    };
+
+
+    
+    fetch("https://nv.salesnavigators.in/wp-json/custom/v1/insert_uniform_data", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+
   };
   
   return (
@@ -343,7 +326,7 @@ const FinalForm = () => {
               <div className="flex-col">
                 <div className="form-group">
                   <input
-                    type="text"
+                    type="number"
                     name="postcode"
                     id="postcode"
                     placeholder="Postcode*"
@@ -444,12 +427,13 @@ const FinalForm = () => {
                 </div>
               </div>
             </div>
-            <button
+            <button 
               type="submit"
               className="btn-design"
               value="Send"
               name="saveImage"
-              onClick={handleClickSave}>Save</button>
+              onClick={handleClickSave}
+            >Save</button>
           </div>
         </form>
       </div>
