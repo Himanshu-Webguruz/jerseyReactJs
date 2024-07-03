@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-
+import arc from "../../../public/assets/straighten-text-img.png";
 import allColors from "../../utils/colors.js";
 // import AddPlayerNum from "./AddPlayerNum.jsx";
 // import AddPlayerName from "./AddPlayerName.jsx";
@@ -177,6 +177,13 @@ const AddTeam = ({
     const textShape = shapeValue;
     const textFont = fontValue;
 
+    if (!playerText) {
+      alert("Please Enter Player Name");
+      return;
+    } else {
+      setPlayerErrors("");
+    }
+
     window.svgpathfunc1(
       "back",
       textInput,
@@ -227,6 +234,11 @@ const AddTeam = ({
     });
   };
 
+  //error for empty field
+  const [errors, setErrors] = useState(false);
+  const [playerErrors, setPlayerErrors] = useState("");
+  const [numerrors, setNumErrors] = useState("");
+
   const [inputText, setInputText] = useState("");
 
   const [showAllColors1, setShowAllColors1] = useState(false);
@@ -241,17 +253,17 @@ const AddTeam = ({
     });
   };
 
-  const [shapeValue1, setShapeValue1] = useState("Straight");
+  const [shapeValue1, setShapeValue1] = useState("Straight-Line");
   const shapeArray = [
-    "vertical-arc",
-    "center-bulge",
-    "bottom-vertical",
-    "full-rev-arc",
-    "half-asleep-arc",
-    "inverse-vertical",
-    "Straight",
-    "san-diego",
-    "breathing-in",
+    "Straight-Line",
+    "Vertical-Arc",
+    "Center-Bulge",
+    "Bottom-Vertical",
+    "Full-Rev-Arc",
+    "Half-Asleep-Arc",
+    "Inverse-Vertical",
+    "San-Diego",
+    "Breathing-In",
   ];
   const handleOptionChange1 = () =>
     setShapeValue1(document.getElementById("shape").value);
@@ -312,7 +324,13 @@ const AddTeam = ({
     const textInput = inputText;
     const textShape = shapeValue1;
     const textFont = fontValue1;
-
+    if (!inputText) {
+      // setErrors("Please Team name");
+      alert("Please Enter Team Name");
+      return;
+    } else {
+      setErrors("");
+    }
     window.svgpathfunc(
       "front",
       textInput,
@@ -471,7 +489,12 @@ const AddTeam = ({
     const textInput = document.getElementById("text-num").value;
 
     const textFont = fontValue2;
-
+    if (!textInput) {
+      alert("Please Enter Value");
+      return;
+    } else {
+      setNumErrors(" ");
+    }
     window.svgpathfunc2(
       "front",
       textInput,
@@ -546,7 +569,7 @@ const AddTeam = ({
           <div className="answer-wrap">
             <div>
               {/* yaha see */}
-             
+
               <div className="text-style">
                 <div className="answer">
                   <div className="customize-prod-list scrollbar">
@@ -582,37 +605,48 @@ const AddTeam = ({
                         </div>
                       </div>
                     </div>
-                    <select
-                      onChange={handleOptionChange1}
-                      value={shapeValue1}
-                      id="shape"
-                    >
-                      {shapeArray.map((item, id) => (
-                        <option key={id} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      onChange={handleFontChange1}
-                      value={fontValue1}
-                      id="font"
-                    >
-                      {fontArray1.map((fontKey, id) => {
-                        const fontName = fontMapping1[fontKey]
-                          ? fontMapping1[fontKey].split("/").pop().split(".")[0]
-                          : fontKey;
-                        return (
-                          <option
-                            key={id}
-                            value={fontKey}
-                            style={{ fontFamily: fontKey }}
-                          >
-                            {fontName}
+                    <div className="input-append field-input merge-input-lbel">
+                      <label className="sklble">
+                        <img src={arc} />
+                      </label>
+                      <select
+                        onChange={handleOptionChange1}
+                        value={shapeValue1}
+                        id="shape"
+                      >
+                        {shapeArray.map((item, id) => (
+                          <option key={id} value={item}>
+                            {item}
                           </option>
-                        );
-                      })}
-                    </select>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="input-append field-input merge-input-lbel">
+                      <label className="sklble">A</label>
+                      <select
+                        onChange={handleFontChange1}
+                        value={fontValue1}
+                        id="font"
+                      >
+                        {fontArray1.map((fontKey, id) => {
+                          const fontName = fontMapping1[fontKey]
+                            ? fontMapping1[fontKey]
+                                .split("/")
+                                .pop()
+                                .split(".")[0]
+                            : fontKey;
+                          return (
+                            <option
+                              key={id}
+                              value={fontKey}
+                              style={{ fontFamily: fontKey }}
+                            >
+                              {fontName}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                     <div style={{ display: "block" }}>
                       <input
                         type="button"
@@ -624,50 +658,50 @@ const AddTeam = ({
                           backgroundColor: selectedColor1,
                         }}
                       />{" "}
-                      Name Color
+                      Team Name Color
                     </div>
 
                     {showAllColors1 && (
                       <>
-                       <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
                           >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() => handleColorSelection1(color)}
-                              />
-                            ))}
+                            X
+                          </button>
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() => handleColorSelection1(color)}
+                                />
+                              ))}
+                            </div>
+                            <div
+                              className="color-row"
+                              style={{ display: "block" }}
+                            >
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() => handleColorSelection1(color)}
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div
-                            className="color-row"
-                            style={{ display: "block" }}
-                          >
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() => handleColorSelection1(color)}
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}
@@ -708,50 +742,51 @@ const AddTeam = ({
                           width: "30px",
                           backgroundColor: selectedOutlineColor1,
                         }}
-                      />
+                      />{" "}
+                      Outline Color
                     </div>
                     {showOutlineColors1 && (
                       <>
-                       <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
                           >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() =>
-                                  handleOutlineColorSelection1(color)
-                                }
-                              />
-                            ))}
+                            X
+                          </button>
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection1(color)
+                                  }
+                                />
+                              ))}
+                            </div>
+                            <div className="color-row">
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection1(color)
+                                  }
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div className="color-row">
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() =>
-                                  handleOutlineColorSelection1(color)
-                                }
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}
@@ -784,7 +819,18 @@ const AddTeam = ({
                                 onChange={(e) => setPlayerText(e.target.value)}
                                 placeholder="Add Player Name Here..."
                               />
-
+                              {/* {playerErrors && (
+                                <span
+                                  className="error"
+                                  style={{
+                                    float: "left",
+                                    fontSize: "14px",
+                                    padding: "10px 0px 10px 0px",
+                                  }}
+                                >
+                                  {playerErrors}
+                                </span>
+                              )} */}
                               <button
                                 id="add-text-string"
                                 className="btn btn-submit fieldin"
@@ -798,37 +844,49 @@ const AddTeam = ({
                         </div>
                       </div>
                     </div>
-                    <select
-                      onChange={handleOptionChange}
-                      value={shapeValue}
-                      id="shape1"
-                    >
-                      {shapeArray.map((item, id) => (
-                        <option key={id} value={item}>
-                          {item}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      onChange={handleFontChange}
-                      value={fontValue}
-                      id="font1"
-                    >
-                      {fontArray.map((fontKey, id) => {
-                        const fontName = fontMapping[fontKey]
-                          ? fontMapping[fontKey].split("/").pop().split(".")[0]
-                          : fontKey;
-                        return (
-                          <option
-                            key={id}
-                            value={fontKey}
-                            style={{ fontFamily: fontKey }}
-                          >
-                            {fontName}
+                    <div className="input-append field-input merge-input-lbel">
+                      <label className="sklble">
+                        <img src={arc} />
+                      </label>
+                      <select
+                        onChange={handleOptionChange}
+                        value={shapeValue}
+                        id="shape1"
+                      >
+                        {shapeArray.map((item, id) => (
+                          <option key={id} value={item}>
+                            {item}
                           </option>
-                        );
-                      })}
-                    </select>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="input-append field-input merge-input-lbel">
+                      <label className="sklble">A</label>
+                      <select
+                        onChange={handleFontChange}
+                        value={fontValue}
+                        id="font1"
+                      >
+                        {fontArray.map((fontKey, id) => {
+                          const fontName = fontMapping[fontKey]
+                            ? fontMapping[fontKey]
+                                .split("/")
+                                .pop()
+                                .split(".")[0]
+                            : fontKey;
+                          return (
+                            <option
+                              key={id}
+                              value={fontKey}
+                              style={{ fontFamily: fontKey }}
+                            >
+                              {fontName}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                     <div style={{ display: "block" }}>
                       <input
                         type="button"
@@ -845,46 +903,46 @@ const AddTeam = ({
 
                     {showAllColors && (
                       <>
-                      <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
+                          >
+                            X
+                          </button>
 
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
-                          >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() => handleColorSelection(color)}
-                              />
-                            ))}
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() => handleColorSelection(color)}
+                                />
+                              ))}
+                            </div>
+                            <div
+                              className="color-row"
+                              style={{ display: "block" }}
+                            >
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() => handleColorSelection(color)}
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div
-                            className="color-row"
-                            style={{ display: "block" }}
-                          >
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() => handleColorSelection(color)}
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}
@@ -931,46 +989,46 @@ const AddTeam = ({
 
                     {showOutlineColors && (
                       <>
-                       <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
                           >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() =>
-                                  handleOutlineColorSelection(color)
-                                }
-                              />
-                            ))}
+                            X
+                          </button>
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection(color)
+                                  }
+                                />
+                              ))}
+                            </div>
+                            <div className="color-row">
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection(color)
+                                  }
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div className="color-row">
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() =>
-                                  handleOutlineColorSelection(color)
-                                }
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}
@@ -1005,6 +1063,18 @@ const AddTeam = ({
                                 onChange={(e) => setNumValue(e.target.value)}
                                 placeholder="Add Jersey Number Here..."
                               />
+                              {/* {numerrors && (
+                                <span
+                                  className="error"
+                                  style={{
+                                    float: "left",
+                                    fontSize: "14px",
+                                    padding: "10px 0px 10px 0px",
+                                  }}
+                                >
+                                  {numerrors}
+                                </span>
+                              )} */}
                               <button
                                 id="add-text-string"
                                 className="btn btn-submit fieldin"
@@ -1018,27 +1088,32 @@ const AddTeam = ({
                         </div>
                       </div>
                     </div>
-                    <select
-                      onChange={handleFontChange2}
-                      value={fontValue2}
-                      id="font2"
-                    >
-                      {fontArray2.map((fontKey, id) => {
-                        const fontName = fontMapping2[fontKey]
-                          ? fontMapping2[fontKey].split("/").pop().split(".")[0]
-                          : fontKey;
-                        return (
-                          <option
-                            key={id}
-                            value={fontKey}
-                            style={{ fontFamily: fontKey }}
-                          >
-                            {fontName}
-                          </option>
-                        );
-                      })}
-                    </select>
-
+                    <div className="input-append field-input merge-input-lbel">
+                      <label className="sklble">A</label>
+                      <select
+                        onChange={handleFontChange2}
+                        value={fontValue2}
+                        id="font2"
+                      >
+                        {fontArray2.map((fontKey, id) => {
+                          const fontName = fontMapping2[fontKey]
+                            ? fontMapping2[fontKey]
+                                .split("/")
+                                .pop()
+                                .split(".")[0]
+                            : fontKey;
+                          return (
+                            <option
+                              key={id}
+                              value={fontKey}
+                              style={{ fontFamily: fontKey }}
+                            >
+                              {fontName}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                     <div style={{ display: "block" }}>
                       <input
                         type="button"
@@ -1050,50 +1125,50 @@ const AddTeam = ({
                           backgroundColor: selectedColor2,
                         }}
                       />{" "}
-                      Name Color
+                      Jersey Number Color
                     </div>
 
                     {showAllColors2 && (
                       <>
-                       <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
                           >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() => handleColorSelection2(color)}
-                              />
-                            ))}
+                            X
+                          </button>
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() => handleColorSelection2(color)}
+                                />
+                              ))}
+                            </div>
+                            <div
+                              className="color-row"
+                              style={{ display: "block" }}
+                            >
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() => handleColorSelection2(color)}
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div
-                            className="color-row"
-                            style={{ display: "block" }}
-                          >
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() => handleColorSelection2(color)}
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}
@@ -1135,50 +1210,51 @@ const AddTeam = ({
                           backgroundColor: selectedOutlineColor2,
                         }}
                       />
+                      Outline Color
                     </div>
 
                     {showOutlineColors2 && (
                       <>
-                       <div className="colors-btn-merge">
-                        <button
-                          onClick={closeAllColors}
-                          style={{ float: "right" }}
-                        >
-                          X
-                        </button>
-                        <div className="all-colors">
-                          <div
-                            style={{ display: "flex" }}
-                            className="recent-inputs"
+                        <div className="colors-btn-merge">
+                          <button
+                            onClick={closeAllColors}
+                            style={{ float: "right" }}
                           >
-                            {recentColors.map((color, index) => (
-                              <input
-                                key={index}
-                                type="button"
-                                style={{ backgroundColor: color }}
-                                onClick={() =>
-                                  handleOutlineColorSelection2(color)
-                                }
-                              />
-                            ))}
+                            X
+                          </button>
+                          <div className="all-colors">
+                            <div
+                              style={{ display: "flex" }}
+                              className="recent-inputs"
+                            >
+                              {recentColors.map((color, index) => (
+                                <input
+                                  key={index}
+                                  type="button"
+                                  style={{ backgroundColor: color }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection2(color)
+                                  }
+                                />
+                              ))}
+                            </div>
+                            <div className="color-row">
+                              {allColors.map((color, index) => (
+                                <input
+                                  type="button"
+                                  key={index}
+                                  style={{
+                                    backgroundColor: color,
+                                    height: "15px",
+                                    width: "15px",
+                                  }}
+                                  onClick={() =>
+                                    handleOutlineColorSelection2(color)
+                                  }
+                                ></input>
+                              ))}
+                            </div>
                           </div>
-                          <div className="color-row">
-                            {allColors.map((color, index) => (
-                              <input
-                                type="button"
-                                key={index}
-                                style={{
-                                  backgroundColor: color,
-                                  height: "15px",
-                                  width: "15px",
-                                }}
-                                onClick={() =>
-                                  handleOutlineColorSelection2(color)
-                                }
-                              ></input>
-                            ))}
-                          </div>
-                        </div>
                         </div>
                       </>
                     )}

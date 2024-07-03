@@ -183,7 +183,7 @@ window.initWrap = function (testSVG, container, type) {
     });
   }
 
-  if (type == "vertical-arc") {
+  if (type == "Vertical-Arc") {
     // Done
     controlPoints = [
       ["0", "9"],
@@ -219,7 +219,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.8238", "3.7781"],
       ["20", "10"],
     ];
-  } else if (type == "breathing-in") {
+  } else if (type == "Breathing-In") {
     // Done
     controlPoints = [
       ["0", "0"],
@@ -255,7 +255,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.94", "2.1792"],
       ["20", "1"],
     ];
-  } else if (type == "bottom-vertical") {
+  } else if (type == "Bottom-Vertical") {
     // Done
     controlPoints = [
       ["0", "0"],
@@ -291,7 +291,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.94", "0"],
       ["20", "0"],
     ];
-  } else if (type == "center-bulge") {
+  } else if (type == "Center-Bulge") {
     // Done
     controlPoints = [
       ["0", "9"],
@@ -327,7 +327,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.94", "2.6"],
       ["20", "5.2"],
     ];
-  } else if (type == "full-rev-arc") {
+  } else if (type == "Full-Rev-Arc") {
     controlPoints = [
       ["0", "0"],
       ["0", "1"],
@@ -362,7 +362,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.8238", "6.4458"],
       ["20", "0"],
     ];
-  } else if (type == "half-asleep-arc") {
+  } else if (type == "Half-Asleep-Arc") {
     // Done
     controlPoints = [
       ["0", "0"],
@@ -398,7 +398,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.94", "0"],
       ["20", "0"],
     ];
-  } else if (type == "inverse-vertical") {
+  } else if (type == "Inverse-Vertical") {
     // Done
     controlPoints = [
       ["0", "0"],
@@ -434,7 +434,7 @@ window.initWrap = function (testSVG, container, type) {
       ["39.94", "2.1792"],
       ["20", "1"],
     ];
-  } else if (type == "san-diego") {
+  } else if (type == "San-Diego") {
     controlPoints = [
       ["2.4105", "0"],
       ["2.0095", "1.7291"],
@@ -565,7 +565,7 @@ window.svgpathfunc = async function (
   tn_italic
 ) {
   font = font ? font : "Bauer.ttf";
- 
+
   var instance = new SVGTextAnimate(
     "Fonts/" + font,
     {
@@ -629,20 +629,12 @@ window.svgpathfunc = async function (
     ].join(" ");
     svgFront.setAttribute("viewBox", viewBoxFront);
 
-   
-
-    
-
     var canvasTemp = "data:image/svg+xml;base64," + btoa(svgFront.outerHTML);
-    window.canvasTemp = canvasTemp
-    
-    window.dispatchEvent(new Event("canvasTemp"));
+    window.canvasTemp = canvasTemp;
 
-    
+    window.dispatchEvent(new Event("canvasTemp"));
   }, 100);
 };
-
-
 
 window.svgpathfunc2 = async function (
   id,
@@ -656,7 +648,7 @@ window.svgpathfunc2 = async function (
   tn_italic
 ) {
   font = font ? font : "Bauer.ttf";
- 
+
   var instance = new SVGTextAnimate(
     "Fonts/" + font,
     {
@@ -720,16 +712,10 @@ window.svgpathfunc2 = async function (
     ].join(" ");
     svgFront.setAttribute("viewBox", viewBoxFront);
 
-   
-
-    
-
     var canvasTemp2 = "data:image/svg+xml;base64," + btoa(svgFront.outerHTML);
-    window.canvasTemp2 = canvasTemp2
-    
-    window.dispatchEvent(new Event("canvasTemp2"));
+    window.canvasTemp2 = canvasTemp2;
 
-    
+    window.dispatchEvent(new Event("canvasTemp2"));
   }, 100);
 };
 
@@ -745,7 +731,7 @@ window.svgpathfunc1 = async function (
   tn_italic
 ) {
   font = font ? font : "Bauer.ttf";
- 
+
   var instance = new SVGTextAnimate(
     "Fonts/" + font,
     {
@@ -798,7 +784,7 @@ window.svgpathfunc1 = async function (
     window.svgString1 = svgString1;
 
     $(".teamNameTemp").html(svgString1);
-
+np
     var svgBack = document.getElementById("svgTeamNameBack");
     var bboxBack = svgBack.getBBox();
     var viewBoxBack = [
@@ -809,20 +795,10 @@ window.svgpathfunc1 = async function (
     ].join(" ");
     svgBack.setAttribute("viewBox", viewBoxBack);
 
-   
-
-    
-
+    // if (viewBoxBack === "0 0 0 0") {
     var canvasTemp1 = "data:image/svg+xml;base64," + btoa(svgBack.outerHTML);
-    window.canvasTemp1 = canvasTemp1
-    
+    window.canvasTemp1 = canvasTemp1;
     window.dispatchEvent(new Event("canvasTemp1"));
-
-    
+    // }
   }, 100);
 };
-
-
-
-
-

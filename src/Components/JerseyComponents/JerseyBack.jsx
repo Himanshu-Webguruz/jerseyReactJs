@@ -165,13 +165,7 @@ const JerseyBack = forwardRef(
             tempCanvasbackStr.width = 300;
             tempCanvasbackStr.height = 600;
             const textContextbackStr = tempCanvasbackStr.getContext("2d");
-            textContextbackStr.drawImage(
-              additionalShoulderImg,
-              5,
-              0,
-              300,
-              600
-            );
+            textContextbackStr.drawImage(additionalShoulderImg, 5, 0, 300, 600);
             const tempImagebackStr = textContextbackStr.getImageData(
               5,
               0,
@@ -213,8 +207,6 @@ const JerseyBack = forwardRef(
       });
       //to remove fabric from pdf
       fabricCanvasRef1.current.fabricInstance = fabricCanvas;
-      fabricCanvas.lowerCanvasEl.width = 300;
-      fabricCanvas.lowerCanvasEl.height = 600;
 
       if (numVal) {
         fabric.Image.fromURL(numVal, (img) => {
@@ -228,11 +220,11 @@ const JerseyBack = forwardRef(
             editable: false,
           });
           img.setControlsVisibility({
-            mt:false,
-            mb:false,
-            ml:false,
-            mr:false
-          })
+            mt: false,
+            mb: false,
+            ml: false,
+            mr: false,
+          });
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
 
@@ -271,49 +263,51 @@ const JerseyBack = forwardRef(
       return () => {
         fabricCanvas.dispose();
       };
-    }, [numVal, player,backNumPosition,backTextPosition]);
+    }, [numVal, player, backNumPosition, backTextPosition]);
 
     useImperativeHandle(ref, () => ({
       // Function to capture the canvas
       captureCanvas: async () => {
         const mainCanvas = canvasRef.current;
         const fabricCanvas = fabricCanvasRef1.current.fabricInstance;
-    
+        fabricCanvas.lowerCanvasEl.width = 300;
+        fabricCanvas.lowerCanvasEl.height = 600;
+
         if (!fabricCanvas) {
-          console.error('Fabric.js canvas is not initialized');
+          console.error("Fabric.js canvas is not initialized");
           return;
         }
-    
+
         // Temporarily hide the control points
         fabricCanvas.getObjects().forEach((obj) => {
-          obj.set('hasControls', false);
-          obj.set('selectable', false);
-          obj.set('hasBorders',false);
+          obj.set("hasControls", false);
+          obj.set("selectable", false);
+          obj.set("hasBorders", false);
         });
-    
+
         // Render the canvas without control points
         fabricCanvas.renderAll();
-    
+
         const combinedCanvas = document.createElement("canvas");
         const combinedContext = combinedCanvas.getContext("2d");
-    
+
         combinedCanvas.width = 375;
         combinedCanvas.height = 745;
         combinedContext.drawImage(mainCanvas, 0, 0);
         combinedContext.drawImage(fabricCanvas.lowerCanvasEl, 0, 0);
-    
+
         const dataURL = combinedCanvas.toDataURL("image/png");
-    
+
         // Restore the control points
         fabricCanvas.getObjects().forEach((obj) => {
-          obj.set('hasControls', true);
-          obj.set('selectable', true);
-          obj.set('hasBorders',true);
+          obj.set("hasControls", true);
+          obj.set("selectable", true);
+          obj.set("hasBorders", true);
         });
-    
+
         // Re-render the canvas with control points
         fabricCanvas.renderAll();
-    
+
         return dataURL;
       },
     }));

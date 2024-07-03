@@ -262,11 +262,7 @@ const JerseyFront = forwardRef(
       });
       //to remove fabric from pdf
       fabricCanvasRef1.current.fabricInstance = fabricCanvas;
-      fabricCanvas.lowerCanvasEl.width = 300;
-      fabricCanvas.lowerCanvasEl.height = 600;
 
-      
-      
       if (canvasTemp) {
         fabric.Image.fromURL(canvasTemp, (img) => {
           img.set({
@@ -281,7 +277,7 @@ const JerseyFront = forwardRef(
             transparentCorners: false,
           });
 
-          console.log(img)
+          console.log(img);
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
 
@@ -369,6 +365,8 @@ const JerseyFront = forwardRef(
       captureCanvas: async () => {
         const mainCanvas = canvasRef.current;
         const fabricCanvas = fabricCanvasRef1.current.fabricInstance;
+        fabricCanvas.lowerCanvasEl.width = 300;
+        fabricCanvas.lowerCanvasEl.height = 600;
 
         if (!fabricCanvas) {
           console.error("Fabric.js canvas is not initialized");

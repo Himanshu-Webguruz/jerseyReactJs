@@ -1493,6 +1493,108 @@ button:focus, button:focus-visible {
 .customize-prod-list.scrollbar div input.toggle-colors-btn {
     margin-right: 8px;
 }
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap div {
+    color: #fff;
+    position: relative;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap .input-append.field-input button {
+    padding: 4px 27px;
+    bottom: auto;
+    height: 33px;
+    top: 49px;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap >div {
+    border-bottom: 1px solid #383838;
+    padding-bottom: 22px;
+    margin-bottom: 22px;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap >div:last-child {
+    border-bottom: 0px;
+    margin: 0px;
+}
+.customize-uniform .customize-layout .input-append.field-input label {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap .customize-prod-list .input-append.field-input.merge-input-lbel label {
+    width: 60px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap .customize-prod-list .input-append.field-input.merge-input-lbel {
+    display: flex;
+    align-items: center;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap .customize-prod-list .input-append.field-input.merge-input-lbel img {
+    width: 34px;
+}
+.merge-two-layers .closeBtn button {
+    position: relative;
+    padding: 0px !important;
+    top: -14px !important;
+    background-color: #000;
+}
+.customize-prod-list.scrollbar .colors-btn-merge button {
+    padding: 0px !important;
+    top: -16px !important;
+    background-color: #000;
+    z-index: 9;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list>li.add-images .upload-image-wrap button#btn-reset {
+    margin: 0px;
+    height: auto;
+}
+.customize-uniform .customize-layout .customize-option ul.accordion-list>li.add-images .upload-image-wrap label, .customize-uniform .customize-layout .customize-option ul.accordion-list>li.add-images .upload-image-wrap input {
+    margin-bottom: 0 !important;
+}
+.thankyou-image-content p {
+    margin-bottom: 30px;
+}
+.thank-you-component h2 {
+    padding: 12px;
+    border-bottom: 1px solid #6b4421;
+    margin-bottom: 40px;
+}
+.thankyou-image-content button.unifromBtn {
+    padding: 12px 12px;
+    border-radius: 5px;
+    background-image: linear-gradient(180deg, #ffd200, #f6931e 50%);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    border: 0px;
+    transition: 0.3s ease-in-out 0s;
+}
+.thankyou-image-content button.unifromBtn:hover {
+    box-shadow: 0 0 3px #000;
+}
+
+.thankyou-image-content img.thankyouImage {
+    margin-bottom: 20px;
+}
+.thankyou-image-content p {
+    margin-bottom: 30px;
+}
+.thank-you-component {
+    background-color: #13161a;
+    border-radius: 12px;
+    padding: 0px 15px 30px;
+    width: 100%;
+    max-width: 790px;
+    padding: 0px 20px 30px;
+} 
+.uniform-tabs .thankyouMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 0px 20px;
+}
+
 /* Media Query */
 /* Min Width */
 
@@ -1772,10 +1874,18 @@ button:focus, button:focus-visible {
         height: 320px;
         overflow-y: auto;
     }
+    .customize-uniform {
+        height: 100%;
+        background-color: #fff;
+    }
 }
 
 @media screen and (max-width:767px) {
-   
+
+    ul#uniform-tabs-nav {
+        display: none !important;
+    }
+
     .customize-uniform {
         padding: 0px;
     }
@@ -1955,6 +2065,23 @@ section.custom-uniform {
     .customize-uniform .customize-layout .customize-option ul.accordion-list>li.choose-v .info-group figure figcaption{
         width: 100%;
     }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list>li.add-images .upload-image-wrap input {
+        margin-bottom: 10px !important;
+    }
+    .customize-option ul li h3 {
+        padding: 9px 0px !important;
+    }
+    .customize-uniform .customize-layout .customize-view .customize-view__image {
+        padding: 5px;
+    }
+    .uniform-tabs {
+        padding: 0px !important;
+    }
+    .customize-view__large.flex-col .customize-view__details .customize-view__image .MuiBox-root.css-19kzrtu canvas {
+        transform: scale(0.96);
+    }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list .answer-wrap {
+        bottom: 62px;}
     /* 22/12/2023 CSS Ends Here */
 }
 
