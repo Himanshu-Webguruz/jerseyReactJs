@@ -25,9 +25,6 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
   return (
     <>
       <li className={`choose-v ${isOpen ? "active" : ""}`}>
-      <h3 onClick={handleTab} className="forDesktop">
-          Choose V or No V in Uniform
-        </h3>
         <h3 onClick={() => handleTab("choose-v-layer")} className="forMob">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="60.000000pt" height="20.000000pt" viewBox="0 0 60.000000 20.000000" preserveAspectRatio="xMidYMid meet">
         <metadata>
@@ -58,11 +55,11 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
                           <div className="info-group">
                             <figure>
                               <img src={noVcutTwo} alt="" />
-                              <figcaption>No V Cut Shorts</figcaption>
+                              <figcaption>No V Cut Top</figcaption>
                             </figure>
                             <figure>
                               <img src={noVCutshort} alt="" />
-                              <figcaption>No V Cut Top</figcaption>
+                              <figcaption>No V Cut Shorts</figcaption>
                             </figure>
                           </div>
                         </button>
@@ -85,12 +82,12 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
                           onClick={() => handleCutorNoCut("v")}
                         >
                           <div className="info-group">
-                            <figure>
-                              <img src={vCutshort} alt="" />
+                          <figure>
+                              <img src={vCutOne} alt="" />
                               <figcaption>V Cut Top</figcaption>
                             </figure>
                             <figure>
-                              <img src={vCutOne} alt="" />
+                              <img src={vCutshort} alt="" />
                               <figcaption>V Cut Shorts</figcaption>
                             </figure>
                           </div>

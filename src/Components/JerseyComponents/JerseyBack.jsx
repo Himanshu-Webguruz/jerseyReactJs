@@ -213,6 +213,8 @@ const JerseyBack = forwardRef(
       });
       //to remove fabric from pdf
       fabricCanvasRef1.current.fabricInstance = fabricCanvas;
+      fabricCanvas.lowerCanvasEl.width = 300;
+      fabricCanvas.lowerCanvasEl.height = 600;
 
       if (numVal) {
         fabric.Image.fromURL(numVal, (img) => {

@@ -47,6 +47,7 @@ const JerseyFront = forwardRef(
     }
 
     // we want background image for our image so that i look original image
+
     const shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_front_narrow_shoulderbg.png`;
 
     // this is for storing the value of uniform_layer which helps to decide how many stripes will be there
@@ -140,6 +141,7 @@ const JerseyFront = forwardRef(
         let imageData = context.getImageData(10, 0, 300, 600);
         imageData = changeColor(imageData, shapeColors.shirt1);
         context.putImageData(imageData, 10, 0);
+
         context.drawImage(shirtbg, 10, 0, 300, 600);
 
         const images1 = [
@@ -260,7 +262,11 @@ const JerseyFront = forwardRef(
       });
       //to remove fabric from pdf
       fabricCanvasRef1.current.fabricInstance = fabricCanvas;
+      fabricCanvas.lowerCanvasEl.width = 300;
+      fabricCanvas.lowerCanvasEl.height = 600;
 
+      
+      
       if (canvasTemp) {
         fabric.Image.fromURL(canvasTemp, (img) => {
           img.set({
@@ -275,6 +281,7 @@ const JerseyFront = forwardRef(
             transparentCorners: false,
           });
 
+          console.log(img)
           fabricCanvas.add(img);
           fabricCanvas.setActiveObject(img);
 
@@ -282,6 +289,35 @@ const JerseyFront = forwardRef(
             const { left, top, scaleX, scaleY, angle } = img;
 
             setTextPosition({ left, top, scaleX, scaleY, angle });
+          });
+        });
+      }
+
+      if (numVal) {
+        fabric.Image.fromURL(numVal, (img) => {
+          img.set({
+            left: numPosition.left,
+            top: numPosition.top,
+            scaleX: numPosition.scaleX,
+            scaleY: numPosition.scaleY,
+            angle: numPosition.angle,
+            hasRotatingPoint: false,
+            lockScalingFlip: true,
+            cornerSize: 10,
+            transparentCorners: false,
+          });
+          img.setControlsVisibility({
+            mt: false, // middle top disable
+            mb: false, // midle bottom
+            ml: false, // middle left
+            mr: false, // I think you get it
+          });
+          fabricCanvas.add(img);
+          fabricCanvas.setActiveObject(img);
+          img.on("modified", () => {
+            const { left, top, scaleX, scaleY, angle } = img;
+
+            setNumPosition({ left, top, scaleX, scaleY, angle });
           });
         });
       }
@@ -314,39 +350,17 @@ const JerseyFront = forwardRef(
         });
       }
 
-      if (numVal) {
-        fabric.Image.fromURL(numVal, (img) => {
-          img.set({
-            left: numPosition.left,
-            top: numPosition.top,
-            scaleX: numPosition.scaleX,
-            scaleY: numPosition.scaleY,
-            angle: numPosition.angle,
-            hasRotatingPoint: false,
-            lockScalingFlip: true,
-            cornerSize: 10,
-            transparentCorners: false,
-          });
-          img.setControlsVisibility({
-            mt:false,
-            mb:false,
-            ml:false,
-            mr:false
-          })
-          fabricCanvas.add(img);
-          fabricCanvas.setActiveObject(img);
-          img.on("modified", () => {
-            const { left, top, scaleX, scaleY, angle } = img;
-
-            setNumPosition({ left, top, scaleX, scaleY, angle });
-          });
-        });
-      }
-
       return () => {
         fabricCanvas.dispose();
       };
-    }, [canvasTemp, selectedImage, numVal, textPosition, numPosition,imagePosition ]);
+    }, [
+      canvasTemp,
+      selectedImage,
+      numVal,
+      textPosition,
+      numPosition,
+      imagePosition,
+    ]);
 
     // using this we allow our parent i.e canvas to have excess to this means parent is getting the whole final
     // image
@@ -355,46 +369,45 @@ const JerseyFront = forwardRef(
       captureCanvas: async () => {
         const mainCanvas = canvasRef.current;
         const fabricCanvas = fabricCanvasRef1.current.fabricInstance;
-    
+
         if (!fabricCanvas) {
-          console.error('Fabric.js canvas is not initialized');
+          console.error("Fabric.js canvas is not initialized");
           return;
         }
-    
+
         // Temporarily hide the control points
         fabricCanvas.getObjects().forEach((obj) => {
-          obj.set('hasControls', false);
-          obj.set('selectable', false);
-          obj.set('hasBorders',false);
+          obj.set("hasControls", false);
+          obj.set("selectable", false);
+          obj.set("hasBorders", false);
         });
-    
+
         // Render the canvas without control points
         fabricCanvas.renderAll();
-    
+
         const combinedCanvas = document.createElement("canvas");
         const combinedContext = combinedCanvas.getContext("2d");
-    
+
         combinedCanvas.width = 375;
         combinedCanvas.height = 745;
         combinedContext.drawImage(mainCanvas, 0, 0);
         combinedContext.drawImage(fabricCanvas.lowerCanvasEl, 0, 0);
-    
+
         const dataURL = combinedCanvas.toDataURL("image/png");
-    
+
         // Restore the control points
         fabricCanvas.getObjects().forEach((obj) => {
-          obj.set('hasControls', true);
-          obj.set('selectable', true);
-          obj.set('hasBorders',true);
+          obj.set("hasControls", true);
+          obj.set("selectable", true);
+          obj.set("hasBorders", true);
         });
-    
+
         // Re-render the canvas with control points
         fabricCanvas.renderAll();
-    
+
         return dataURL;
       },
     }));
-
 
     return (
       <div style={{ position: "relative", width: 300, height: 600 }}>
